@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Producto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/crud.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header"><i class="fas fa-store"></i> Agregar Producto</div>
+    <nav>
+        <ul>
+            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+            <li><a class="active" href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
+            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
+            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
+            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <header class="navbar">
+        <h2>Agregar Producto</h2>
+        <button class="btn-logout-nav"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+    </header>
+
+    <main class="container">
+        <div class="card" style="width: 450px;">
+            <h2>Nuevo Producto</h2>
+            <form id="formProducto" class="profile-form">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Nombre del Producto</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Laptop" 
+                           style="border-radius: 25px; text-align: center;" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Precio (Q)</label>
+                    <input type="number" id="precio" name="precio" step="0.01" placeholder="0.00" 
+                           style="border-radius: 25px; text-align: center;" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Stock Inicial</label>
+                    <input type="number" id="stock" name="stock" placeholder="0" 
+                           style="border-radius: 25px; text-align: center;" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Estado</label>
+                    <select id="estado" name="estado" style="border-radius: 25px; text-align-last: center;" required>
+                        <option value="1">Activo / En Stock</option>
+                        <option value="0">Inactivo / Agotado</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-action" style="border-radius: 25px;">
+                        <i class="fas fa-save"></i> Guardar Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

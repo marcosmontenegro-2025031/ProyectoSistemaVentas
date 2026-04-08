@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Venta | Sistema Ventas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/crud.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-store"></i> Gestión de Detalle de Venta
+    </div>
+    <nav>
+        <ul>
+            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
+            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
+            <li><a class="active" href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
+            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <header class="navbar">
+        <h2>Gestión de Detalle de Venta </h2>
+        <form action="../templates/login.html" method="get">
+            <button type="submit" class="btn-logout-nav">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </form>
+    </header>
+
+    <main class="main-content" style="padding: 40px;">
+        <div class="actions">
+            <a class='btn' href='../templates/agregardetalleventa.html'><i class="fas fa-plus"></i> Nuevo Detalle de Venta</a>
+        </div>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>SubTotal</th>
+                        <th>Producto</th>
+                        <th>Venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>4500.00</td>
+                        <td>9000.00</td>
+                        <td>Laptop Dell</td>
+                        <td>1</td>
+                        <td>
+                            <a class='action-btn edit' href='../templates/editardetalleventa.html'><i class="fas fa-edit"></i></a>
+                            <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

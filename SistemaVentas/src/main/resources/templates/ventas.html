@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/crud.css">
+  
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-store"></i> Sistema Ventas
+    </div>
+    <nav>
+        <ul>
+            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a class="active" href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
+            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
+            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
+            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <header class="navbar">
+        <h2>Gestión de Ventas</h2>
+        <form action="../templates/login.html" method="get">
+            <button type="submit" class="btn-logout-nav">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </form>
+    </header>
+
+
+            <div class="actions">
+                <a class='btn' href='../templates/agregarventa.html'><i class="fas fa-plus"></i> Agregar Venta</a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha de Venta</th>
+                            <th>Total a Pagar</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Fila de datos individual -->
+                        <tr>
+                            <td>1</td>
+                            <td>Juan Pérez</td>
+                            <td>juan.perez@mail.com</td>
+                            <td>555-1234</td>
+                            <td>Activo</td>
+                            <td>
+                                <a class='action-btn edit' href='../templates/editarventa.html'><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>María López</td>
+                            <td>maria.lopez@mail.com</td>
+                            <td>555-5678</td>
+                            <td>Inactivo</td>
+                            <td>
+                                <!-- Botones de acción para gestionar la edición o eliminación del registro -->
+                                <a class='action-btn edit' href='../templates/editarventa.html'><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+</div>
+
+</body>
+</html>

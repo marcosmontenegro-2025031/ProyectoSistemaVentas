@@ -17,6 +17,11 @@ public class VentaController {
     @Autowired
     private VentaService service;
 
+    @GetMapping("/venta")
+    public String mostrarVenta() {
+        return "venta";
+    }
+
     @GetMapping
     public List<Venta> getAll() {
         return service.getAllVentas();

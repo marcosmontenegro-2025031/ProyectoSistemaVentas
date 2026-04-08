@@ -1,69 +1,47 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: #f1f5f9;
-        }
-
-        .navbar {
-            background: #2563eb;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 20px;
-        }
-
-        .container {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            width: 300px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        button {
-            padding: 10px 20px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #dc2626;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/home.css">
+    
 </head>
 <body>
 
-<div class="navbar">
-    Sistema de Ventas
-</div>
-
-<div class="container">
-    
-    <div class="card">
-        <h2>Bienvenido</h2>
-        <p>Has iniciado sesión correctamente</p>
-
-        <form action="/login" method="get">
-            <button type="submit">Cerrar sesión</button>
-        </form>
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-store"></i> Sistema Ventas
     </div>
+    <nav>
+        <ul>
+            <li><a class="active" href='../templates/home.html'><i class="fas fa-chart-line"></i> Inicio</a></li>
+            <li><a href='../templates/ventas.html'><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+            <li><a href='../templates/productos.html'><i class="fas fa-box"></i> Productos</a></li>
+            <li><a href='../templates/clientes.html'><i class="fas fa-users"></i> Clientes</a></li>
+            <li><a href='../templates/usuarios.html'><i class="fas fa-user-shield"></i> Usuarios</a></li>
+            <li><a href="../templates/detalleventa.html"><i class="fas fa-detalleventa"></i>Detalle Venta</a></li>
+            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</aside>
 
+<div class="main-wrapper">
+    <header class="navbar">
+        <h2>Inicio</h2>
+        <form action="/login" method="get">
+            <button type="submit" class="btn-logout-nav">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </form>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h2>Bienvenido</h2>
+            <p>Has iniciado sesión correctamente.</p>
+        </div>
+    </main>
 </div>
 
 </body>
