@@ -8,74 +8,47 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImplements implements UsuarioService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository repo;
 
     @Override
-    public List<Usuario> getAllUsuarios() {
-        return repository.findAll();
-    }
+    public Usuario registrar(String username, String password) {
 
-    @Override
-    public Usuario getUsuarioById(Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    }
-
-    @Override
-    public Usuario saveUsuario(Usuario usuario) {
-        boolean existe = repository.existsByUsernameAndEmailAndRolAndEstado(
-                usuario.getUsername(),
-                usuario.getEmail(),
-                usuario.getRol(),
-                usuario.getEstado());
-
-        if (existe) {
-            throw new RuntimeException("El usuario ya existe.");
+        if (repo.findByUsuario(username) != null) {
+            return null;
         }
 
-        return repository.save(usuario); 
+        Usuario u = new Usuario();
+        u.setUsername(username);
+        u.setPassword(password);
+
+        return repo.save(u);
     }
 
     @Override
-    public Usuario updateUsuario(Integer id, Usuario actualizado) {
-        Usuario existente = getUsuarioById(id);
+    public Usuario login(String username, String password) {
 
-        existente.setUsername(actualizado.getUsername());
-        existente.setEmail(actualizado.getEmail());
-        existente.setRol(actualizado.getRol());
-        existente.setEstado(actualizado.getEstado());
+        Usuario u = repo.findByUsuario(username);
 
-        if (actualizado.getPassword() != null && !actualizado.getPassword().isEmpty()) {
-            existente.setPassword(actualizado.getPassword());
+        if (u != null && u.getPassword().equals(password)) {
+            return u;
         }
 
-        return repository.save(existente);
+        return null;
     }
 
     @Override
     public void deleteUsuario(Integer id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("Usuario no existe");
-        }
-        repository.deleteById(id);
+        repo.deleteById(id);
     }
 
     @Override
-    public boolean validarLogin(String correo, String password) {
-        Usuario usuario = buscarPorCorreo(correo);
-
-        if (usuario != null) {
-            return usuario.getPassword().equals(password);
-        }
-
-        return false;
+    public List<Usuario> getAllUsuarios() {
+        return repo.findAll();
     }
 
-    @Override
-    public Usuario buscarPorCorreo(String correo) {
-        return repository.findByEmail(correo).orElse(null);
-    }
+
+
 }

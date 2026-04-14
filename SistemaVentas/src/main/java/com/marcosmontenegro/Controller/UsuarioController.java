@@ -6,40 +6,64 @@ import com.marcosmontenegro.Service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioController {
 
+@Controller
+public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @GetMapping
-    public List<Usuario> getAll() {
-        return service.getAllUsuarios();
+
+    // LOGIN
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getUsuarioById(id));
-    }
 
-    @PostMapping
-    public ResponseEntity<Usuario> save(@Valid @RequestBody Usuario usuario) {
-        return ResponseEntity.ok(service.saveUsuario(usuario));
+    @PostMapping("/login")
+    public String validar(@RequestParam String username,
+                          @RequestParam String password,
+                          Model model) {
+        Usuario u = service.login(username, password);
+        if (u != null) {
+            return "redirect:/lista";
+        } else {
+            model.addAttribute("error", "Credenciales incorrectas");
+            return "login";
+        }
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer id, @Valid @RequestBody Usuario usuario) {
-        return ResponseEntity.ok(service.updateUsuario(id, usuario));
+    // REGISTRO
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro";
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ErrorResponse> delete(@PathVariable Integer id) {
+    @PostMapping("/registro")
+    public String guardar(@RequestParam String username,
+                          @RequestParam String password,
+                          Model model) {
+        Usuario u = service.registrar(username, password);
+        if (u == null) {
+            model.addAttribute("error", "Usuario ya existe");
+            return "registro";
+        }
+        return "redirect:/usuario";
+    }
+    // LISTA
+    @GetMapping("/lista")
+    public String listar(Model model) {
+        List<Usuario> lista = service.getAllUsuarios();
+        model.addAttribute("usuarios", lista);
+        return "lista";
+    }
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable int id) {
         service.deleteUsuario(id);
-        return ResponseEntity.ok(new ErrorResponse("Usuario eliminado correctamente"));
+        return "redirect:/lista";
     }
 }
