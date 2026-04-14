@@ -1,96 +1,117 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Detalle de Venta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Detalle | Sistema Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/crud.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Modificar Detalle de Venta
-    </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a class="active" href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Editar Detalle de Venta</h2>
-        <button class="btn-logout-nav"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
-    </header>
-
-    <main class="container">
-        <div class="card" style="width: 450px;">
-            <h2>Modificar Detalle de Venta</h2>
-            <form id="formEditDetalleVenta" class="profile-form">
-                
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Código (ID)</label>
-                    <input type="text" id="id" name="id" value="1" 
-                           style="border-radius: 25px; text-align: center; background: #f4f7f9;" readonly>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Cantidad</label>
-                    <input type="text" id="nombre" name="nombre" value="2" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Precio Unitario (Q)</label>
-                    <input type="number" id="precio" name="precio" step="0.01" value="4500.00" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">SubTotal (Q)</label>
-                    <input type="number" id="stock" name="stock" value="9000.00" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Producto</label>
-                    <select id="estado" name="estado" style="border-radius: 25px; text-align-last: center;" required>
-                        <<option value="1">Laptop Dell</option>
-                        <option value="2">Tablet Samsung</option>
-                        <option value="3">Smartphone iPhone</option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Venta</label>
-                    <select id="venta" name="venta" style="border-radius: 25px; text-align-last: center;" required>
-                        <option value="1">Venta 1</option>
-                        <option value="2">Venta 2</option>
-                        <option value="3">Venta 3</option>
-                    </select>
-                </div>
-
-                <div class="form-actions" style="display: flex; gap: 10px;">
-                    <button type="submit" class="btn-action" style="border-radius: 25px;">
-                        <i class="fas fa-save"></i> Actualizar
-                    </button>
-                    <a href="../templates/productos.html" class="btn-action" 
-                       style="border-radius: 25px; background: #DFE2E8; color: #242424; text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                        Cancelar
-                    </a>
-                </div>
-            </form>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
         </div>
-    </main>
-</div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a class="active" th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Edición de Transacción</h2>
+            </div>
+            <div class="nav-right">
+                <button class="btn-logout-nav">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="card-form" style="max-width: 450px; width: 100%;">
+                <div class="card-header">
+                    <i class="fas fa-edit"></i>
+                    <h2>Modificar Detalle</h2>
+                </div>
+                
+                <form id="formEditDetalle" th:action="@{/detalle-venta/actualizar/{id}(id=${detalle.id})}" th:object="${detalle}" method="post" class="profile-form">
+                    
+                    <div class="form-group">
+                        <label for="id">Código de Detalle</label>
+                        <div class="input-container">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="text" id="id" th:field="*{id}" class="readonly-input" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad</label>
+                        <div class="input-container">
+                            <i class="fas fa-sort-numeric-up-alt"></i>
+                            <input type="number" id="cantidad" th:field="*{cantidad}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precioUnitario">Precio Unitario (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-tag"></i>
+                            <input type="number" id="precioUnitario" th:field="*{precioUnitario}" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subTotal">SubTotal (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-calculator"></i>
+                            <input type="number" id="subTotal" th:field="*{subTotal}" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="producto">Producto</label>
+                        <div class="input-container">
+                            <i class="fas fa-box"></i>
+                            <select id="producto" th:field="*{producto.id}" required>
+                                <option th:each="p : ${productos}" th:value="${p.id}" th:text="${p.nombre}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venta">ID de Venta Relacionada</label>
+                        <div class="input-container">
+                            <i class="fas fa-receipt"></i>
+                            <select id="venta" th:field="*{venta.id}" required>
+                                <option th:each="v : ${ventas}" th:value="${v.id}" th:text="'Venta #' + ${v.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-sync-alt"></i> Actualizar Detalle
+                        </button>
+                        <a th:href="@{/detalle-venta}" class="btn-cancel">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
 </body>
 </html>
