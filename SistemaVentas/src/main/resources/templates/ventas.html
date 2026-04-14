@@ -2,88 +2,93 @@
 <html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas | INPRAX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/crud.css">
-  
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Sistema Ventas
-    </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a class="active" href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> INPRAX
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a class="active" th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Gestión de Ventas</h2>
-        <form action="../templates/login.html" method="get">
-            <button type="submit" class="btn-logout-nav">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </form>
-    </header>
+    <div class="main-wrapper">
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Gestión de Ventas</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </header>
 
-
-            <div class="actions">
-                <a class='btn' href='../templates/agregarventa.html'><i class="fas fa-plus"></i> Agregar Venta</a>
+        <main class="main-content" style="padding: 30px;">
+            
+            <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="color: #333; margin: 0;">Registro de Transacciones</h3>
+                <a th:href="@{/ventas/nuevo}" class="btn-add">
+                    <i class="fas fa-plus"></i> Registrar Nueva Venta
+                </a>
             </div>
 
-            <div class="table-container">
+            <div class="table-container shadow-sm">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Fecha de Venta</th>
-                            <th>Total a Pagar</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Fila de datos individual -->
-                        <tr>
-                            <td>1</td>
-                            <td>Juan Pérez</td>
-                            <td>juan.perez@mail.com</td>
-                            <td>555-1234</td>
-                            <td>Activo</td>
+                        <tr th:each="v : ${ventas}">
+                            <td th:text="${v.id}">1</td>
+                            <td th:text="${#dates.format(v.fechaVenta, 'dd/MM/yyyy')}">14/04/2026</td>
+                            <td th:text="${v.cliente.nombre + ' ' + v.cliente.apellido}">Juan Pérez</td>
+                            <td th:text="'Q ' + ${#numbers.formatDecimal(v.total, 1, 2)}" style="font-weight: 600;">Q 150.00</td>
                             <td>
-                                <a class='action-btn edit' href='../templates/editarventa.html'><i class="fas fa-edit"></i></a>
-                                <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
+                                <span class="status-badge" 
+                                      th:classappend="${v.estado == 1} ? 'active' : 'inactive'"
+                                      th:text="${v.estado == 1 ? 'Completada' : 'Pendiente'}">
+                                    Completada
+                                </span>
                             </td>
-                        </tr>
-
-                        
-                        <tr>
-                            <td>2</td>
-                            <td>María López</td>
-                            <td>maria.lopez@mail.com</td>
-                            <td>555-5678</td>
-                            <td>Inactivo</td>
-                            <td>
-                                <!-- Botones de acción para gestionar la edición o eliminación del registro -->
-                                <a class='action-btn edit' href='../templates/editarventa.html'><i class="fas fa-edit"></i></a>
-                                <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
+                            <td class="text-center">
+                                <div class="action-group">
+                                    <a th:href="@{/ventas/editar/{id}(id=${v.id})}" class="action-btn edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a th:href="@{/ventas/eliminar/{id}(id=${v.id})}" class="action-btn delete" 
+                                       onclick="return confirm('¿Eliminar registro de venta?')" title="Eliminar">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </main>
-</div>
-
-</body>
-</html>
