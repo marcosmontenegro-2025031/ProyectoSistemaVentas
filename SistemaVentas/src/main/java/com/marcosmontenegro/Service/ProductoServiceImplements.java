@@ -68,7 +68,7 @@ public class ProductoServiceImplements implements ProductoService {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {
-            throw new RuntimeException("No se puede eliminar: El producto no existe.");
+            throw new RuntimeException("No se puede deleteUsuario: El producto no existe.");
         }
     }
 }
