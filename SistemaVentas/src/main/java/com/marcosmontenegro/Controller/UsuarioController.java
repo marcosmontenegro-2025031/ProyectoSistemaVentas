@@ -18,6 +18,12 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
+    // LOGIN
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
 
     // LOGIN
     @GetMapping("/login")
@@ -32,12 +38,13 @@ public class UsuarioController {
                           Model model) {
         Usuario u = service.login(username, password);
         if (u != null) {
-            return "redirect:/lista";
+            return "redirect:/home";
         } else {
             model.addAttribute("error", "Credenciales incorrectas");
             return "login";
         }
     }
+
     // REGISTRO
     @GetMapping("/registro")
     public String registro() {
@@ -52,18 +59,32 @@ public class UsuarioController {
             model.addAttribute("error", "Usuario ya existe");
             return "registro";
         }
-        return "redirect:/usuario";
+        return "redirect:/login";
     }
-    // LISTA
-    @GetMapping("/lista")
-    public String listar(Model model) {
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+
+
+    @GetMapping("/usuarios")
+    public String listarUsuarios(Model model) {
         List<Usuario> lista = service.getAllUsuarios();
         model.addAttribute("usuarios", lista);
-        return "lista";
+        return "usuarios";
     }
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable int id) {
+
+    @GetMapping("/usuarios/agregarusuario")
+    public String formularioNuevo(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "agregarusuario";
+    }
+
+    @GetMapping("/usuarios/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable Integer id) {
         service.deleteUsuario(id);
-        return "redirect:/lista";
+        return "redirect:/usuarios";
     }
 }
