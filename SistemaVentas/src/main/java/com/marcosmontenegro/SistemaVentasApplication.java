@@ -15,4 +15,5 @@ public class SistemaVentasApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Api funcionando");
     }
+
 }
