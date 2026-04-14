@@ -1,85 +1,108 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Estudiante | INPRAX</title>
-    <link rel="stylesheet" href="../static/agregarVenta.css">
+    <title>Editar Venta | INPRAX</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
     <aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Sistema Ventas
-    </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a class="active" href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a class="active" th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
     <div class="main-wrapper">
         <header class="navbar">
-            <h2 style="margin: 0; font-size: 1.2rem;">Editar Venta</h2>
-            <a href='/' class="btn-logout-nav" style="text-decoration: none;">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </a>
+            <div class="nav-left">
+                <h2>Editar Registro de Venta</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
         </header>
 
         <main class="container">
-            <div class="card" style="width: 450px;">
-                <h2 style="color: #1160B7; margin-bottom: 25px;">Editar Registro</h2>
+            <div class="card-form" style="max-width: 450px; width: 100%;">
+                <div class="card-header">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h2>Modificar Transacción</h2>
+                </div>
                 
-                <form id="formVenta" class="profile-form" action="#" method="post">
+                <form id="formVenta" th:action="@{/ventas/actualizar/{id}(id=${venta.id})}" th:object="${venta}" method="post" class="profile-form">
                     
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Fecha de Venta</label>
-                        <input type="date" id="fechaVenta" name="fechaVenta" 
-                               style="border-radius: 25px; text-align: center;" required>
+                    <div class="form-group">
+                        <label for="fechaVenta">Fecha de Venta</label>
+                        <div class="input-container">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="date" id="fechaVenta" th:field="*{fechaVenta}" required>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Total a Pagar</label>
-                        <input type="number" id="total" name="total" step="0.01" placeholder="0.00" 
-                               style="border-radius: 25px; text-align: center;" required>
+                    <div class="form-group">
+                        <label for="total">Total a Pagar (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <input type="number" id="total" th:field="*{total}" step="0.01" placeholder="0.00" required>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Estado de la Transacción</label>
-                        <select id="estado" name="estado" style="border-radius: 25px; text-align-last: center;" required>
-                            <option value="1">Completada</option>
-                            <option value="0">Pendiente</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="estado">Estado de la Transacción</label>
+                        <div class="input-container">
+                            <i class="fas fa-info-circle"></i>
+                            <select id="estado" th:field="*{estado}" required>
+                                <option value="1">Completada</option>
+                                <option value="0">Pendiente / Cancelada</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">DPI del Cliente</label>
-                        <input type="text" id="cliente" name="cliente" placeholder="Número de DPI" 
-                               style="border-radius: 25px; text-align: center;" required>
+                    <div class="form-group">
+                        <label for="cliente">DPI del Cliente</label>
+                        <div class="input-container">
+                            <i class="fas fa-id-card"></i>
+                            <select id="cliente" th:field="*{cliente.id}" required>
+                                <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nombre + ' ' + c.apellido}"></option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">ID del Vendedor</label>
-                        <input type="number" id="usuario" name="usuario" placeholder="ID de Usuario" 
-                               style="border-radius: 25px; text-align: center;" required>
+                    <div class="form-group">
+                        <label for="usuario">Vendedor Responsable</label>
+                        <div class="input-container">
+                            <i class="fas fa-user-tie"></i>
+                            <select id="usuario" th:field="*{usuario.id}" required>
+                                <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.username}"></option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn-action" style="border-radius: 25px; margin-bottom: 10px;">
-                            <i class="fas fa-save"></i> Guardar Registro
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar Cambios
                         </button>
-                        <a href="/index/estudiantes" class="btn-action btn-cancel" 
-                           style="text-decoration: none; text-align: center; border-radius: 25px; display: flex; align-items: center; justify-content: center; height: 45px; box-sizing: border-box; background: #DFE2E8; color: #242424;">
-                            Cancelar
-                        </a>
+                        <a th:href="@{/ventas}" class="btn-cancel">Cancelar</a>
                     </div>
                 </form>
             </div>

@@ -2,47 +2,84 @@
 <html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | INPRAX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/home.css">
-    
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Sistema Ventas
-    </div>
-    <nav>
-        <ul>
-            <li><a class="active" href='../templates/home.html'><i class="fas fa-chart-line"></i> Inicio</a></li>
-            <li><a href='../templates/ventas.html'><i class="fas fa-shopping-cart"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-box"></i> Productos</a></li>
-            <li><a href='../templates/clientes.html'><i class="fas fa-users"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-shield"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-detalleventa"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Inicio</h2>
-        <form action="/login" method="get">
-            <button type="submit" class="btn-logout-nav">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </form>
-    </header>
-
-    <main class="container">
-        <div class="card">
-            <h2>Bienvenido</h2>
-            <p>Has iniciado sesión correctamente.</p>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> INPRAX
         </div>
-    </main>
-</div>
+        <nav>
+            <ul>
+                <li><a class="active" th:href="@{/home}"><i class="fas fa-chart-line"></i> Inicio</a></li>
+                <li><a th:href="@{/ventas}"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-box"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-users"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-shield"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-file-lines"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Panel de Control</h2>
+            </div>
+            <div class="nav-right">
+                <span class="user-welcome">Bienvenido, <strong th:text="${username}">Usuario</strong></span>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="container" style="padding: 30px;">
+            
+            <div class="welcome-section">
+                <h1>Hola de nuevo, <span th:text="${nombreUsuario}">Luis</span></h1>
+                <p>Este es el resumen de tu sistema de ventas para hoy.</p>
+            </div>
+
+            <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                
+                <div class="stat-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #1160B7;">
+                    <i class="fas fa-dollar-sign" style="color: #1160B7; font-size: 1.5rem;"></i>
+                    <h3 style="margin: 10px 0;">Ventas Hoy</h3>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #333;">Q 12,450.00</p>
+                </div>
+
+                <div class="stat-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #2ecc71;">
+                    <i class="fas fa-box-open" style="color: #2ecc71; font-size: 1.5rem;"></i>
+                    <h3 style="margin: 10px 0;">Productos</h3>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #333;">156 Items</p>
+                </div>
+
+                <div class="stat-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #f1c40f;">
+                    <i class="fas fa-user-friends" style="color: #f1c40f; font-size: 1.5rem;"></i>
+                    <h3 style="margin: 10px 0;">Clientes</h3>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #333;">48 Activos</p>
+                </div>
+
+            </div>
+
+            <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, #1160B7 0%, #0a3d7a 100%); color: white; padding: 40px; border-radius: 20px;">
+                <h2>Estado del Sistema: <span style="background: #2ecc71; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">En Línea</span></h2>
+                <p style="opacity: 0.9; margin-top: 10px;">Todos los módulos están funcionando correctamente. Puedes comenzar a gestionar tus ventas y productos desde el menú lateral.</p>
+            </div>
+
+        </main>
+    </div>
 
 </body>
 </html>
