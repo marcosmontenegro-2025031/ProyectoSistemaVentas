@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INPRAX | Sistema de Gestión de Ventas</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img th:src="@{/images/logo.png}" alt="Logo INPRAX">
+        </div>
+        <nav class="nav">
+            <a th:href="@{/login}" class="btn-login">Iniciar sesión</a>
+            <a th:href="@{/register}" class="btn-register">Crear cuenta</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Gestiona tu sistema de ventas de forma eficiente</h1>
+                <p>
+                    Administra clientes, productos y ventas en una sola plataforma fácil, rápida y segura.
+                </p>
+                <div class="hero-buttons">
+                    <a th:href="@{/register}" class="btn-main">Empezar ahora</a>
+                    <a th:href="@{/login}" class="btn-secondary">Acceder al panel</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <i class="fas fa-boxes-stacked icon-feature"></i>
+                <h2>Gestión de Productos</h2>
+                <p>Administra tu inventario, agrega nuevos productos y controla el stock en tiempo real.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-cash-register icon-feature"></i>
+                <h2>Gestión de Ventas</h2>
+                <p>Registra transacciones de manera rápida y lleva un historial detallado de tus ingresos.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-user-group icon-feature"></i>
+                <h2>Control de Clientes</h2>
+                <p>Mantén una base de datos organizada de tus clientes y consulta su información al instante.</p>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Optimiza tu negocio desde ahora</h2>
+            <p>Únete a INPRAX y lleva el control total de tu emprendimiento.</p>
+            <a th:href="@{/register}" class="btn-main">Registrarme gratis</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2026 INPRAX - Sistema de Ventas</p>
+            <p>Desarrollado para la gestión eficiente de inventarios y clientes.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
