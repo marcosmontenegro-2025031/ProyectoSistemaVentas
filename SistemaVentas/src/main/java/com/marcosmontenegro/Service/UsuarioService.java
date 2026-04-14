@@ -7,15 +7,11 @@ public interface UsuarioService {
 
     List<Usuario> getAllUsuarios();
 
-    Usuario getUsuarioById(Integer id);
 
-    Usuario saveUsuario(Usuario usuario);
+    Usuario registrar(String username, String password);
 
-    Usuario updateUsuario(Integer id, Usuario usuario);
+    Usuario login(String username, String password);
 
     void deleteUsuario(Integer id);
 
-    boolean validarLogin(String correo, String password);
-
-    Usuario buscarPorCorreo(String correo);
 }
