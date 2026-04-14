@@ -1,86 +1,113 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario | Sistema Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/crud.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Modificar Usuario
-    </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a class="active" href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Editar Usuario</h2>
-        <button class="btn-logout-nav"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
-    </header>
-
-    <main class="container">
-        <div class="card" style="width: 450px;">
-            <h2>Modificar Usuario</h2>
-            <form id="formEditUsuario" class="profile-form">
-                
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Código (ID)</label>
-                    <input type="text" id="id" name="id" value="1" 
-                           style="border-radius: 25px; text-align: center; background: #f4f7f9;" readonly>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Username</label>
-                    <input type="text" id="username" name="username" value="luisromero" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Password</label>
-                    <input type="text" id="password" name="password" value="12345" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Rol</label>
-                    <select id="rol" name="rol" style="border-radius: 25px; text-align-last: center;" required>
-                        <option value="1" selected>Administrador</option>
-                        <option value="0">Usuario</option>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Estado</label>
-                    <select id="estado" name="estado" style="border-radius: 25px; text-align-last: center;" required>
-                        <option value="1" selected>Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
-                </div>
-
-                <div class="form-actions" style="display: flex; gap: 10px;">
-                    <button type="submit" class="btn-action" style="border-radius: 25px;">
-                        <i class="fas fa-save"></i> Actualizar
-                    </button>
-                    <a href="../templates/clientes.html" class="btn-action" 
-                       style="border-radius: 25px; background: #DFE2E8; color: #242424; text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                        Cancelar
-                    </a>
-                </div>
-            </form>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
         </div>
-    </main>
-</div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a class="active" th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Control de Accesos</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="card-form" style="max-width: 450px; width: 100%;">
+                <div class="card-header">
+                    <i class="fas fa-user-pen"></i>
+                    <h2>Modificar Usuario</h2>
+                </div>
+                
+                <form id="formEditUsuario" th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" class="profile-form">
+                    
+                    <div class="form-group">
+                        <label for="id">Código (ID)</label>
+                        <div class="input-container">
+                            <i class="fas fa-fingerprint"></i>
+                            <input type="text" id="id" th:field="*{id}" class="readonly-input" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        <div class="input-container">
+                            <i class="fas fa-user-tag"></i>
+                            <input type="text" id="username" th:field="*{username}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-container">
+                            <i class="fas fa-key"></i>
+                            <input type="password" id="password" th:field="*{password}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Rol de Usuario</label>
+                        <div class="input-container">
+                            <i class="fas fa-shield-halved"></i>
+                            <select id="rol" th:field="*{rol}" required>
+                                <option value="1">Administrador</option>
+                                <option value="0">Vendedor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado de Cuenta</label>
+                        <div class="input-container">
+                            <i class="fas fa-user-check"></i>
+                            <select id="estado" th:field="*{estado}" required>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar Cambios
+                        </button>
+                        <a th:href="@{/usuarios}" class="btn-cancel">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
 </body>
 </html>
