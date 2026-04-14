@@ -2,84 +2,109 @@
 <html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Venta | Sistema de Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/crud.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Agregar Venta
-    </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a class="active" href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Agregar Venta</h2>
-        <form action="../templates/login.html" method="get">
-            <button type="submit" class="btn-logout-nav">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </form>
-    </header>
-
-    <main class="container">
-        <div class="card" style="width: 450px;">
-            <form id="formVenta" class="profile-form">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Fecha de Venta</label>
-                    <input type="date" id="fechaVenta" name="fechaVenta" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Total a Pagar</label>
-                    <input type="number" id="total" name="total" step="0.01" placeholder="0.00" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Estado de la Transacción</label>
-                    <select id="estado" name="estado" style="border-radius: 25px; text-align-last: center;" required>
-                        <option value="1">Completada</option>
-                        <option value="0">Pendiente</option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">DPI del Cliente</label>
-                    <input type="text" id="cliente" name="cliente" placeholder="Número de DPI" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">ID del Vendedor</label>
-                    <input type="number" id="usuario" name="usuario" placeholder="ID de Usuario" 
-                           style="border-radius: 25px; text-align: center;" required>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-action" style="border-radius: 25px;">
-                        <i class="fas fa-save"></i> Guardar Registro
-                    </button>
-                </div>
-            </form>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
         </div>
-    </main>
-</div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a class="active" th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Nueva Transacción</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="card-form" style="max-width: 450px; width: 100%;">
+                <div class="card-header">
+                    <i class="fas fa-cash-register"></i>
+                    <h2>Registrar Venta</h2>
+                </div>
+                
+                <form id="formVenta" th:action="@{/ventas/guardar}" method="post" class="profile-form">
+                    
+                    <div class="form-group">
+                        <label for="fechaVenta">Fecha de Venta</label>
+                        <div class="input-container">
+                            <i class="fas fa-calendar-day"></i>
+                            <input type="date" id="fechaVenta" name="fechaVenta" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total">Total a Pagar (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-money-check-dollar"></i>
+                            <input type="number" id="total" name="total" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado de la Transacción</label>
+                        <div class="input-container">
+                            <i class="fas fa-clipboard-check"></i>
+                            <select id="estado" name="estado" required>
+                                <option value="1">Completada</option>
+                                <option value="0">Pendiente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cliente">DPI del Cliente</label>
+                        <div class="input-container">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="cliente" name="cliente" placeholder="Número de DPI" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usuario">ID del Vendedor</label>
+                        <div class="input-container">
+                            <i class="fas fa-user-tie"></i>
+                            <input type="number" id="usuario" name="usuario" placeholder="ID de Usuario" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar Registro
+                        </button>
+                        <a th:href="@{/ventas}" class="btn-cancel">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
 </body>
 </html>
