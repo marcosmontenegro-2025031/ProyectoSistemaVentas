@@ -66,7 +66,7 @@ public class ClienteServiceImplements implements ClienteService {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {
-            throw new RuntimeException("No se puede eliminar: El cliente con ID " + id + " no existe.");
+            throw new RuntimeException("No se puede deleteUsuario: El cliente con ID " + id + " no existe.");
         }
     }
 }
