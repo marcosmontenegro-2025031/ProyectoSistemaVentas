@@ -1,0 +1,328 @@
+body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            color: #242424;
+            display: flex;
+            min-height: 100vh;
+
+            background-image: url("/images/fondo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            background-color: #F4F7F9;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #242424;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            border-right: 1px solid #DFE2E8;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar nav ul li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 15px;
+            color: #DFE2E8;
+            border-radius: 0 25px 25px 0;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar nav ul li a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active {
+            background: #1160B7;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: #1160B7; 
+            color: #FFFFFF;
+            padding: 0 30px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-logout-nav {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout-nav:hover {
+            background: #D24726;
+            border-color: #D24726;
+        }
+
+        .container {
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: #FFFFFF; 
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+            border: 1px solid #DFE2E8;
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #1160B7;
+            margin-top: 0;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 12px;
+            background: #33A144;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-action:hover {
+            background: #288036;
+        }
+
+        .actions {
+    margin-bottom: 25px;
+}
+
+.actions .btn {
+    display: inline-flex;
+    align-items: center;
+    background: #1160B7;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+}
+
+.actions .btn i {
+    margin-right: 8px;
+}
+
+.actions .btn:hover {
+    background: #0D4A8E;
+    box-shadow: 0 4px 12px rgba(17, 96, 183, 0.15);
+    transform: translateY(-1px);
+}
+
+.actions .btn-danger {
+    background: #D24726;
+}
+
+.actions .btn-danger:hover {
+    background: #B03A1F;
+    box-shadow: 0 4px 12px rgba(210, 71, 38, 0.2);
+}
+
+.actions .btn-secondary {
+    background: #DFE2E8;
+    color: #242424;
+}
+
+.actions .btn-secondary:hover {
+    background: #CED4DA;
+}
+
+.table-container {
+    overflow-x: auto;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DFE2E8;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    padding: 15px 20px;
+    text-align: left;
+    color: #242424;
+    border-bottom: 1px solid #DFE2E8;
+    font-size: 14px;
+}
+
+.table th {
+    background: #F4F7F9;
+    color: #1160B7;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: #F1F5F9;
+    transition: background 0.2s ease;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+}
+
+.action-btn.edit { 
+    background: #1160B7; 
+} 
+
+.action-btn.edit:hover { 
+    background: #0D4A8E; 
+}
+
+.action-btn.delete { 
+    background: #D24726; 
+} 
+
+.action-btn.delete:hover { 
+    background: #B03A1F; 
+}
+
+.action-btn.accept { 
+    background: #33A144; 
+} 
+
+.action-btn.accept:hover { 
+    background: #288036; 
+}
+
+.action-btn.reject { 
+    background: #DFE2E8; 
+    color: #242424; 
+}
+
+.action-btn.reject:hover { 
+    background: #CED4DA; 
+}
+
+.profile-form .form-group input,
+.profile-form .form-group select,
+.profile-form .form-group textarea {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #DFE2E8;
+    background: #FFFFFF;
+    color: #242424;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-form .form-group input:focus,
+.profile-form .form-group select:focus,
+.profile-form .form-group textarea:focus {
+    border-color: #1160B7;
+    box-shadow: 0 0 0 3px rgba(17, 96, 183, 0.1);
+}
+
+.form-actions .btn {
+    background: #33A144;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.3s ease;
+}
+
+.form-actions .btn:hover {
+    background: #288036;
+}
+
+.form-actions .btn-cancel {
+    background: transparent;
+    color: #242424;
+    border: 1px solid #DFE2E8;
+    margin-left: 10px;
+}
+
+.form-actions .btn-cancel:hover {
+    background: #F4F7F9;
+}
