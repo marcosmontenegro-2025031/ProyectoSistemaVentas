@@ -18,5 +18,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             Integer estado
     );
 
-    Usuario findByUsuario(String usuario);
+    Usuario findByUsername(String username);
 }
