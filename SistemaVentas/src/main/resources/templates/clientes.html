@@ -2,72 +2,94 @@
 <html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Productos | Sistema Ventas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes | Inprax</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/crud.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <i class="fas fa-store"></i> Gestión de Clientes
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a th:href="@{/ventas}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a class="active" th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
+                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Gestión de Clientes</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="main-content" style="padding: 30px;">
+            
+            <div class="table-actions" style="margin-bottom: 25px;">
+                <a class="btn-main" th:href="@{/clientes/nuevo}">
+                    <i class="fas fa-user-plus"></i> Nuevo Cliente
+                </a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.id}">1</td>
+                            <td th:text="${cliente.nombre}">Luis</td>
+                            <td th:text="${cliente.apellido}">Romero</td>
+                            <td th:text="${cliente.direccion}">14 calle zona 16</td>
+                            <td>
+                                <span th:class="${cliente.estado == 'Activo' ? 'badge-active' : 'badge-inactive'}" 
+                                      th:text="${cliente.estado}">
+                                    Activo
+                                </span>
+                            </td>
+                            <td class="actions-cell">
+                                <a class="action-btn edit" th:href="@{/clientes/editar/{id}(id=${cliente.id})}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="action-btn delete" th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}"
+                                   onclick="return confirm('¿Estás seguro de eliminar este cliente?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
     </div>
-    <nav>
-        <ul>
-            <li><a href='../templates/home.html'><i class="fas fa-house"></i> Inicio</a></li>
-            <li><a href='../templates/ventas.html'><i class="fas fa-cart-shopping"></i> Ventas</a></li>
-            <li><a href='../templates/productos.html'><i class="fas fa-boxes-stacked"></i> Productos</a></li>
-            <li><a class="active" href='../templates/clientes.html'><i class="fas fa-address-book"></i> Clientes</a></li>
-            <li><a href='../templates/usuarios.html'><i class="fas fa-user-gear"></i> Usuarios</a></li>
-            <li><a href="../templates/detalleventa.html"><i class="fas fa-circle-info"></i>Detalle Venta</a></li>
-            <li><a href='../templates/login.html'><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<div class="main-wrapper">
-    <header class="navbar">
-        <h2>Gestión de Clientes</h2>
-        <form action="../templates/login.html" method="get">
-            <button type="submit" class="btn-logout-nav">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </form>
-    </header>
-
-    <main class="main-content" style="padding: 40px;">
-        <div class="actions">
-            <a class='btn' href='../templates/agregarcliente.html'><i class="fas fa-plus"></i> Nuevo Cliente</a>
-        </div>
-
-        <div class="table-container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Dirección</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Luis</td>
-                        <td>Romero </td>
-                        <td>14 calle zona 16 </td>
-                        <td>Activo</td>
-                        <td>
-                            <a class='action-btn edit' href='../templates/editarcliente.html'><i class="fas fa-edit"></i></a>
-                            <a href="#" class="action-btn delete"><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
-</div>
 
 </body>
 </html>
