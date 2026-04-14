@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
 <div class="box">
     <form th:action="@{/login}" method="post">
-        <h2>Login</h2>
-
-        <p th:if="${error}" class="error">Credenciales incorrectas</p>
-
-        <input type="text" name="correo" placeholder="Correo" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-
-        <button type="submit">Entrar</button>
-    </form>
+    <input type="text" name="email" required>
+    
+    <input type="password" name="password" required>
+    
+    <button type="submit">Entrar</button>
+</form>
 </div>
 
 </body>
