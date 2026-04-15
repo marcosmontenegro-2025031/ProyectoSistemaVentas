@@ -20,7 +20,7 @@
                 <li><a class="active" th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -31,28 +31,34 @@
     <div class="main-wrapper">
         <header class="navbar">
             <div class="nav-left">
-                <h2>Gestión de Inventario</h2>
+                <h2>Gestión de Productos</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="main-content" style="padding: 30px;">
-            
+    
             <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <h3 style="color: #333; margin: 0;">Lista de Productos</h3>
-                <a th:href="@{/productos/nuevo}" class="btn-add">
-                    <i class="fas fa-plus"></i> Registrar Producto
-                </a>
+                <h3 style="color: #333; margin: 0;">Productos del Sistema</h3>
+                
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="input-container" style="margin: 0;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="buscar" placeholder="Buscar producto..." onkeyup="filtrarTabla()" style="width: 100px;">
+                    </div>
+
+                    <a th:href="@{/clientes/agregarcliente}" class="btn-add-sm">
+                        <i class="fas fa-user-plus"></i> Nuevo Producto
+                    </a>
+                </div>
             </div>
 
             <div class="table-container shadow-sm">
-                <table class="table">
+                <table class="table" id="tablaUsuarios">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -69,21 +75,21 @@
                             <td th:text="${p.nombre}" style="font-weight: 500;">Laptop Dell</td>
                             <td th:text="'Q ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">Q 4500.00</td>
                             <td>
-                                <span th:text="${p.stock}" th:classappend="${p.stock < 5} ? 'text-danger' : ''">15</span>
+                                <span th:text="${p.stock}" th:style="${p.stock < 10 ? 'color: #D24726; font-weight: bold;' : ''}">15</span>
                             </td>
                             <td>
                                 <span class="status-badge" th:classappend="${p.estado == 1} ? 'active' : 'inactive'"
-                                      th:text="${p.estado == 1 ? 'Activo' : 'Agotado'}">
+                                    th:text="${p.estado == 1 ? 'Activo' : 'Inactivo'}">
                                     Activo
                                 </span>
                             </td>
                             <td class="text-center">
-                                <div class="action-group">
-                                    <a th:href="@{/productos/editar/{id}(id=${p.id})}" class="action-btn edit" title="Editar">
+                                <div class="action-group" style="display: flex; justify-content: center; gap: 8px;">
+                                    <a th:href="@{/productos/editarproducto/{id}(id=${p.id})}" class="action-btn edit" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a th:href="@{/productos/eliminar/{id}(id=${p.id})}" class="action-btn delete" 
-                                       onclick="return confirm('¿Estás seguro de eliminar este producto?')" title="Eliminar">
+                                    onclick="return confirm('¿Estás seguro de eliminar este producto?')" title="Eliminar">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -94,6 +100,18 @@
             </div>
         </main>
     </div>
+
+    <script>
+    function filtrarTabla() {
+        const input = document.getElementById("buscar").value.toLowerCase();
+        const filas = document.querySelectorAll("#tablaUsuarios tbody tr");
+
+        filas.forEach(fila => {
+            const texto = fila.innerText.toLowerCase();
+            fila.style.display = texto.includes(input) ? "" : "none";
+        });
+    }
+</script>
 
 </body>
 </html>
