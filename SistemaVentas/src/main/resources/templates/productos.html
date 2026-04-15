@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | INPRAX</title>
+    <title>Gestión de Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
@@ -11,7 +11,7 @@
 
     <aside class="sidebar">
         <div class="sidebar-header">
-            <i class="fas fa-store"></i> INPRAX
+            <i class="fas fa-store"></i> Sistema Ventas
         </div>
         <nav>
             <ul>
@@ -51,7 +51,7 @@
                         <input type="text" id="buscar" placeholder="Buscar producto..." onkeyup="filtrarTabla()" style="width: 100px;">
                     </div>
 
-                    <a th:href="@{/clientes/agregarcliente}" class="btn-add-sm">
+                    <a th:href="@{/productos/agregarproducto}" class="btn-add-sm">
                         <i class="fas fa-user-plus"></i> Nuevo Producto
                     </a>
                 </div>
