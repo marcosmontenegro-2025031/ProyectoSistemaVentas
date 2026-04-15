@@ -62,8 +62,8 @@ public class UsuarioServiceImplements implements UsuarioService {
         u.setUsername(username);
         u.setPassword(password);
         u.setEmail(email);
-        u.setRol("USER"); // Valor por defecto
-        u.setEstado(1);   // Activo por defecto
+        u.setRol("USER");
+        u.setEstado(1);
         return repo.save(u);
     }
 }
