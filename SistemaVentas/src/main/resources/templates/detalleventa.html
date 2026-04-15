@@ -20,7 +20,7 @@
                 <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a class="active" th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a class="active" th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -32,54 +32,62 @@
         
         <header class="navbar">
             <div class="nav-left">
-                <h2>Gestión de Detalles de Venta</h2>
+                <h2>Gestión de Detalles</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="main-content" style="padding: 30px;">
-            
-            <div class="table-actions" style="margin-bottom: 25px;">
-                <a class="btn-main" th:href="@{/detalle-venta/nuevo}">
-                    <i class="fas fa-plus"></i> Nuevo Detalle de Venta
-                </a>
+            <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="color: #333; margin: 0;">Detalle Ventas del Sistema</h3>
+                
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="input-container" style="margin: 0;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="buscar" placeholder="Buscar detalle venta..." onkeyup="filtrarTabla()" style="width: 100px;">
+                    </div>
+
+                    <a th:href="@{/detalleventa/agregardetalleventa}" class="btn-add-sm">
+                        <i class="fas fa-user-plus"></i> Nuevo Detalle Venta
+                    </a>
+                </div>
             </div>
 
-            <div class="table-container">
-                <table class="table">
+            <div class="table-container shadow-sm">
+                <table class="table" id="tablaUsuarios">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>SubTotal</th>
+                            <th>Venta</th>
                             <th>Producto</th>
-                            <th>ID Venta</th>
-                            <th>Acciones</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unit.</th>
+                            <th>Subtotal</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="detalle : ${detalles}">
-                            <td th:text="${detalle.id}">1</td>
-                            <td th:text="${detalle.cantidad}">2</td>
-                            <td th:text="${'Q ' + detalle.precioUnitario}">Q 4500.00</td>
-                            <td th:text="${'Q ' + detalle.subTotal}" style="font-weight: bold; color: #1160B7;">Q 9000.00</td>
-                            <td th:text="${detalle.producto.nombre}">Laptop Dell</td>
-                            <td th:text="${detalle.venta.id}">1</td>
-                            <td class="actions-cell">
-                                <a class="action-btn edit" th:href="@{/detalle-venta/editar/{id}(id=${detalle.id})}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a class="action-btn delete" th:href="@{/detalle-venta/eliminar/{id}(id=${detalle.id})}"
-                                   onclick="return confirm('¿Deseas eliminar este registro de detalle?')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
+                        <tr th:each="d : ${detalles}">
+                            <td th:text="${d.id}">1</td>
+                            <td th:text="${'V-' + d.venta.id}">V-1</td>
+                            <td th:text="${d.producto.nombre}" style="font-weight: 500;">Laptop Dell</td>
+                            <td th:text="${d.cantidad}">2</td>
+                            <td th:text="${'Q ' + d.precioUnitario}">Q 4500.00</td>
+                            <td th:text="${'Q ' + d.subtotal}" style="font-weight: bold; color: #1160B7;">Q 9000.00</td>
+                            <td class="text-center">
+                                <div class="action-group">
+                                    <a th:href="@{/detalleventa/editardetalleventa/{id}(id=${d.id})}" class="action-btn edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a th:href="@{/detalleventa/eliminar/{id}(id=${d.id})}" class="action-btn delete"
+                                    onclick="return confirm('¿Deseas eliminar este registro de detalle?')" title="Eliminar">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -87,6 +95,18 @@
             </div>
         </main>
     </div>
+
+    <script>
+        function filtrarTabla() {
+            const input = document.getElementById("buscar").value.toLowerCase();
+            const filas = document.querySelectorAll("#tablaUsuarios tbody tr");
+
+            filas.forEach(fila => {
+                const texto = fila.innerText.toLowerCase();
+                fila.style.display = texto.includes(input) ? "" : "none";
+            });
+        }
+    </script>
 
 </body>
 </html>
