@@ -12,6 +12,7 @@ public class DetalleVentaServiceImplements implements DetalleVentaService {
     @Autowired
     private DetalleVentaRepository repo;
 
+
     @Override
     public List<DetalleVenta> getAllDetalleVentas() {
         return repo.findAll();
