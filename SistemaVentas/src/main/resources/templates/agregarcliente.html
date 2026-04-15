@@ -1,8 +1,3 @@
-Para que tu sistema de ventas funcione correctamente en Localhost con Spring Boot y se vea profesional, he consolidado todo el HTML.
-
-He corregido las rutas para usar el estándar de Thymeleaf (th:href). Esto asegura que, cuando navegues entre páginas, el servidor encuentre los archivos correctamente sin importar en qué carpeta estés.
-
-HTML
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
@@ -25,7 +20,7 @@ HTML
                 <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a class="active" th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -37,31 +32,29 @@ HTML
         
         <header class="navbar">
             <div class="nav-left">
-                <h2>Agregar Cliente</h2>
+                <h2>Gestión de Detalles</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="container">
-            <div class="card-form">
+            <div class="card-form" style="max-width: 450px; width: 100%;">
                 <div class="card-header">
                     <i class="fas fa-user-plus"></i>
                     <h2>Registro de Nuevo Cliente</h2>
                 </div>
                 
-                <form id="formCliente" th:action="@{/clientes/guardar}" method="post" class="profile-form">
+                <form id="formCliente" th:action="@{/clientes/guardarcliente}" th:object="${cliente}" method="post" class="profile-form">
                     
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Luis Matias" required>
+                            <input type="text" th:field="*{nombre}" placeholder="Ej: Luis Matias" required>
                         </div>
                     </div>
 
@@ -69,7 +62,7 @@ HTML
                         <label for="apellido">Apellido</label>
                         <div class="input-container">
                             <i class="fas fa-signature"></i>
-                            <input type="text" id="apellido" name="apellido" placeholder="Ej: Romero" required>
+                            <input type="text" th:field="*{apellido}" placeholder="Ej: Romero" required>
                         </div>
                     </div>
 
@@ -77,7 +70,7 @@ HTML
                         <label for="direccion">Dirección</label>
                         <div class="input-container">
                             <i class="fas fa-location-dot"></i>
-                            <input type="text" id="direccion" name="direccion" placeholder="Ej: 14 calle zona 18" required>
+                            <input type="text" th:field="*{direccion}" placeholder="Ej: 14 calle zona 18" required>
                         </div>
                     </div>
 
@@ -85,7 +78,7 @@ HTML
                         <label for="estado">Estado del Cliente</label>
                         <div class="input-container">
                             <i class="fas fa-toggle-on"></i>
-                            <select id="estado" name="estado" required>
+                            <select th:field="*{estado}" required>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
