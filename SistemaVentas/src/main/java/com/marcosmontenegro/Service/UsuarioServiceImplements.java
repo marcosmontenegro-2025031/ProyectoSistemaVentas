@@ -39,7 +39,31 @@ public class UsuarioServiceImplements implements UsuarioService {
     }
 
     @Override
+    public Usuario getUsuarioById(Integer id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @Override
+    public void saveUsuario(Usuario usuario) {
+        repo.save(usuario);
+    }
+
+    @Override
     public void deleteUsuario(Integer id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public Usuario registrar(String username, String password, String email) {
+        if (repo.findByUsername(username) != null) {
+            return null;
+        }
+        Usuario u = new Usuario();
+        u.setUsername(username);
+        u.setPassword(password);
+        u.setEmail(email);
+        u.setRol("USER"); // Valor por defecto
+        u.setEstado(1);   // Activo por defecto
+        return repo.save(u);
     }
 }
