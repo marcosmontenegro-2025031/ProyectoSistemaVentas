@@ -27,6 +27,8 @@ public class VentaController {
     @Autowired
     private UsuarioService usuarioService;
 
+    //ADMINISTRADOR
+
     @GetMapping("/ventas")
     public String listarVentas(Model model) {
         List<Venta> lista = service.getAllVentas();
@@ -63,5 +65,30 @@ public class VentaController {
     public String eliminarVenta(@PathVariable Integer id) {
         service.deleteVenta(id);
         return "redirect:/ventas";
+    }
+
+    //VENDEDOR
+
+    @GetMapping("/ventasvendedor")
+    public String listarVentasVendedor(Model model) {
+        List<Venta> lista = service.getAllVentas();
+        model.addAttribute("ventas", lista);
+        return "ventasvendedor";
+    }
+
+    @GetMapping("/ventasvendedor/agregarventa")
+    public String formularioNuevoVendedor(Model model) {
+        Venta venta = new Venta();
+        venta.setFechaVenta(LocalDate.now());
+        model.addAttribute("venta", venta);
+        model.addAttribute("clientes", clienteService.getAllClientes());
+        model.addAttribute("usuarios", usuarioService.getAllUsuarios());
+        return "agregarventasvendedor";
+    }
+
+    @PostMapping("/ventasvendedor/guardarventa")
+    public String guardarVentaVendedor(@ModelAttribute Venta venta) {
+        service.saveVenta(venta);
+        return "redirect:/ventasvendedor";
     }
 }
