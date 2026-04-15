@@ -7,14 +7,12 @@ import java.util.List;
 @Service
 public interface DetalleVentaService {
 
-    List<DetalleVenta> getAllDetalles();
+    List<DetalleVenta> getAllDetalleVentas();
 
-    DetalleVenta getDetalleById(Integer id);
+    DetalleVenta getDetalleVentaById(Integer id);
 
-    DetalleVenta saveDetalle(DetalleVenta detalle);
-
-    DetalleVenta updateDetalle(Integer id, DetalleVenta detalle);
-
-    void deleteDetalle(Integer id);
+    void saveDetalleVenta(DetalleVenta detalleVenta);
+    
+    void deleteDetalleVenta(Integer id);
     
 }
