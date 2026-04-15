@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-image: url("/images/fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #F4F7F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+    .card-form {
+        background: #FFFFFF;
+        width: 100%;
+        max-width: 400px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid #DFE2E8;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: #1160B7;
+        color: #FFFFFF;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .card-header i {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .profile-form {
+        padding: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #242424;
+        font-size: 14px;
+    }
+
+    .input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-container i {
+        position: absolute;
+        left: 12px;
+        color: #1160B7;
+        pointer-events: none;
+    }
+
+    .input-container input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        border: 1px solid #DFE2E8;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .input-container input:focus {
+        outline: none;
+        border-color: #1160B7;
+        box-shadow: 0 0 0 3px rgba(17, 96, 183, 0.1);
+    }
+
+    .btn-save {
+        width: 100%;
+        background: #33A144;
+        color: #FFFFFF;
+        border: none;
+        padding: 14px;
+        border-radius: 6px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background 0.3s ease
+        text-transform: none; 
+        letter-spacing: 0.5px;
+    }
+
+
+    .btn-save:hover {
+        background: #288036;
+    }
+
+    .btn-cancel {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #1160B7;
+        font-size: 14px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .btn-cancel:hover {
+        color: #0D4A8E;
+        text-decoration: underline;
+    }
+
+    .error-msg {
+        color: #D24726;
+        background: #FFEBEE;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        text-align: center;
+        border: 1px solid rgba(210, 71, 38, 0.2);
+    }
