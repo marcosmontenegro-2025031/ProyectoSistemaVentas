@@ -12,10 +12,9 @@ public interface ClienteService {
 
     Cliente getClienteById(Integer id);
 
-    Cliente saveCliente(Cliente cliente);
-
-    Cliente updateCliente(Integer id, Cliente cliente);
+    void saveCliente(Cliente cliente);
 
     void deleteCliente(Integer id);
+    
     
 }
