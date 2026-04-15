@@ -6,25 +6,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body>
+    <body>
 
-<div class="box">
-        <h1 style="text-align: center; font-family: 'Segoe UI', Arial, sans-serif;">Login</h1>
+        <div class="box">
+            <h1 style="text-align: center; font-family: 'Segoe UI', Arial, sans-serif;">Login</h1>
 
-    <form th:action="@{/login}" method="post">
+                <div th:if="${error}" class="error">
+                    <span th:text="${error}"></span>
+                </div>
 
-    <input type="text" name="username" required placeholder="Ingrese su usuario">
-    <input type="password" name="password" required placeholder="Ingrese su contraseña">
-    <button type="submit">Entrar</button>
- </form>   
-    
+                <form th:action="@{/login}" method="post">
 
-        <p style="text-align: center; font-family: 'Segoe UI', Arial, sans-serif;">Aún no tienes cuenta?</p>
-        <a th:href="@{/registro}" style="text-align: center; font-family: 'Segoe UI', Arial, sans-serif; display: block;">Crea tu cuenta aquí</a>
+                    <input type="text" name="username" required placeholder="Ingrese su usuario" >
+                    <input type="password" name="password" required placeholder="Ingrese su contraseña">
+                    <button type="submit">Entrar</button>
 
-    
+                    <a th:href="@{/registro}" class="btn-cancel" style="display: block; margin-top: 15px; text-align: center;">Aún no tienes cuenta? Crea tu cuenta aquí</a>
 
-</div>
-
-</body>
+                </form>   
+        </div>
+    </body>
 </html>
