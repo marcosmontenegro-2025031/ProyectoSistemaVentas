@@ -20,7 +20,7 @@
                 <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a class="active" th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -32,15 +32,13 @@
         
         <header class="navbar">
             <div class="nav-left">
-                <h2>Control de Accesos</h2>
+                <h2>Gestión de Usuarios</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="container">
@@ -50,7 +48,7 @@
                     <h2>Modificar Usuario</h2>
                 </div>
                 
-                <form id="formEditUsuario" th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" class="profile-form">
+                <form id="formEditUsuario" th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post" class="profile-form">
                     
                     <div class="form-group">
                         <label for="id">Código (ID)</label>
@@ -67,6 +65,15 @@
                             <input type="text" id="username" th:field="*{username}" required>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" th:field="*{email}" required>
+                </div>
+            </div>
+
 
                     <div class="form-group">
                         <label for="password">Contraseña</label>
