@@ -34,10 +34,18 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String validar(@RequestParam String username,
-                          @RequestParam String password,
-                          Model model) {
+                        @RequestParam String password,
+                        HttpSession session, // Añadido
+                        Model model) {
         Usuario u = service.login(username, password);
         if (u != null) {
+            session.setAttribute("usuarioLogueado", u);
+
+            if (u.getRol().equals("ADMIN")) {
+                return "redirect:/home";
+            } else if (u.getRol().equals("VENDEDOR")) {
+                return "redirect:/homevendedor";
+            }
             return "redirect:/home";
         } else {
             model.addAttribute("error", "Credenciales incorrectas");
@@ -67,6 +75,11 @@ public class UsuarioController {
     @GetMapping("/home")
     public String home() {
         return "home";
+    }
+
+    @GetMapping("/homevendedor")
+    public String homevendedor() {
+        return "homevendedor";
     }
 
 
@@ -102,6 +115,25 @@ public class UsuarioController {
     public String eliminarUsuario(@PathVariable Integer id) {
         service.deleteUsuario(id);
         return "redirect:/usuarios";
+    }
+
+    //Vendedor
+
+    @GetMapping("/perfil")
+    public String mostrarPerfil(HttpSession session, Model model) {
+        Usuario u = (Usuario) session.getAttribute("usuarioLogueado");
+        if (u == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("usuario", u);
+        return "perfil";
+    }
+
+    @PostMapping("/perfil/guardar")
+    public String guardarUsuarioVendedor(@ModelAttribute Usuario usuario, HttpSession session) {
+        service.saveUsuario(usuario);
+        session.setAttribute("usuarioLogueado", usuario);
+        return "redirect:/homevendedor";
     }
 
 
