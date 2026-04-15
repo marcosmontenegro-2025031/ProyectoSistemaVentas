@@ -20,6 +20,8 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
+    //ADMINISTRADOR
+
     @GetMapping("/clientes")
     public String listarClientes(Model model) {
         List<Cliente> lista = service.getAllClientes();
@@ -52,6 +54,29 @@ public class ClienteController {
         service.deleteCliente(id);
         return "redirect:/clientes";
     }
+
+    //VENDEDOR
+
+    @GetMapping("/clientesvendedor")
+    public String listarClientesVendedor(Model model) {
+        List<Cliente> lista = service.getAllClientes();
+        model.addAttribute("clientes", lista);
+        return "clientesvendedor";
+    }
+
+    @GetMapping("/clientesvendedor/agregarclientevendedor")
+    public String formularioNuevoVendedor(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        return "agregarclientevendedor";
+    }
+
+    @PostMapping("/clientesvendedor/guardarcliente")
+    public String guardarClienteVendedor(@ModelAttribute Cliente cliente) {
+        service.saveCliente(cliente);
+        return "redirect:/clientesvendedor";
+    }
+
+
 
 }
 
