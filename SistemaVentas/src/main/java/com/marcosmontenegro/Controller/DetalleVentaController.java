@@ -23,6 +23,8 @@ public class DetalleVentaController {
     @Autowired
     private VentaService ventaService;
 
+    //ADMINISTRADOR
+
     @GetMapping("/detalleventa")
     public String listarDetalles(Model model) {
         List<DetalleVenta> lista = service.getAllDetalleVentas();
@@ -57,5 +59,28 @@ public class DetalleVentaController {
     public String eliminarDetalle(@PathVariable Integer id) {
         service.deleteDetalleVenta(id);
         return "redirect:/detalleventa";
+    }
+
+    //VENDEDOR
+
+    @GetMapping("/detalleventavendedor")
+    public String listarDetallesVendedor(Model model) {
+        List<DetalleVenta> lista = service.getAllDetalleVentas();
+        model.addAttribute("detalles", lista);
+        return "detalleventavendedor";
+    }
+
+    @GetMapping("/detalleventavendedor/agregardetalleventa")
+    public String formularioNuevoVendedor(Model model) {
+        model.addAttribute("detalleVenta", new DetalleVenta());
+        model.addAttribute("productos", productoService.getAllProductos());
+        model.addAttribute("ventas", ventaService.getAllVentas());
+        return "agregardetalleventavendedor";
+    }
+
+    @PostMapping("/detalleventavendedor/guardardetalle")
+    public String guardarDetalleVendedor(@ModelAttribute DetalleVenta detalleVenta) {
+        service.saveDetalleVenta(detalleVenta);
+        return "redirect:/detalleventavendedor";
     }
 }
