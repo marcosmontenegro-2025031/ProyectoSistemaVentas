@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Cliente | Sistema de Ventas</title>
+    <title>Nuevo Cliente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
@@ -48,7 +48,7 @@
                     <h2>Registro de Nuevo Cliente</h2>
                 </div>
                 
-                <form id="formCliente" th:action="@{/clientes/guardarcliente}" th:object="${cliente}" method="post" class="profile-form">
+                <form id="formCliente" th:action="@{/clientesvendedor/guardarcliente}" th:object="${cliente}" method="post" class="profile-form">
                     
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
