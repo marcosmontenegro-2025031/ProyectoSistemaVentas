@@ -20,7 +20,7 @@
                 <li><a class="active" th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -29,16 +29,15 @@
     </aside>
 
     <div class="main-wrapper">
-        
         <header class="navbar">
             <div class="nav-left">
-                <h2>Inventario de Productos</h2>
+                <h2>Gestión de Productos</h2>
             </div>
             <div class="nav-right">
-                <button class="btn-logout-nav">
-                    <i class="fas fa-sign-out-alt"></i> Salir
-                </button>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="container">
@@ -48,13 +47,13 @@
                     <h2>Nuevo Producto</h2>
                 </div>
                 
-                <form id="formProducto" th:action="@{/productos/guardar}" method="post" class="profile-form">
+                <form id="formProducto" th:action="@{/productos/guardarproducto}" th:object="${producto}" method="post" class="profile-form">
                     
                     <div class="form-group">
                         <label for="nombre">Nombre del Producto</label>
                         <div class="input-container">
                             <i class="fas fa-tag"></i>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Laptop Dell" required>
+                            <input type="text" th:field="*{nombre}" placeholder="Ej: Laptop Dell" required>
                         </div>
                     </div>
 
@@ -62,7 +61,7 @@
                         <label for="precio">Precio (Q)</label>
                         <div class="input-container">
                             <i class="fas fa-money-bill-wave"></i>
-                            <input type="number" id="precio" name="precio" step="0.01" placeholder="0.00" required>
+                            <input type="number" th:field="*{precio}" step="0.01" placeholder="0.00" required>
                         </div>
                     </div>
 
@@ -70,7 +69,7 @@
                         <label for="stock">Stock Inicial</label>
                         <div class="input-container">
                             <i class="fas fa-cubes"></i>
-                            <input type="number" id="stock" name="stock" placeholder="0" required>
+                            <input type="number" th:field="*{stock}" placeholder="0" required>
                         </div>
                     </div>
 
@@ -78,7 +77,7 @@
                         <label for="estado">Disponibilidad</label>
                         <div class="input-container">
                             <i class="fas fa-info-circle"></i>
-                            <select id="estado" name="estado" required>
+                            <select th:field="*{estado}" required>
                                 <option value="1">Activo / En Stock</option>
                                 <option value="0">Inactivo / Agotado</option>
                             </select>
