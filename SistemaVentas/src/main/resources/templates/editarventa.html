@@ -20,7 +20,7 @@
                 <li><a th:href="@{/productos}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
-                <li><a th:href="@{/detalle-venta}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -31,15 +31,13 @@
     <div class="main-wrapper">
         <header class="navbar">
             <div class="nav-left">
-                <h2>Editar Registro de Venta</h2>
+                <h2>Gestión de Ventas</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="container">
@@ -49,13 +47,15 @@
                     <h2>Modificar Transacción</h2>
                 </div>
                 
-                <form id="formVenta" th:action="@{/ventas/actualizar/{id}(id=${venta.id})}" th:object="${venta}" method="post" class="profile-form">
+                <form id="formVenta" th:action="@{/ventas/guardarventa}" th:object="${venta}" method="post" class="profile-form">
                     
+                    <input type="hidden" th:field="*{id}">
+
                     <div class="form-group">
                         <label for="fechaVenta">Fecha de Venta</label>
                         <div class="input-container">
                             <i class="fas fa-calendar-alt"></i>
-                            <input type="date" id="fechaVenta" th:field="*{fechaVenta}" required>
+                            <input type="date" th:field="*{fechaVenta}" required>
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                         <label for="total">Total a Pagar (Q)</label>
                         <div class="input-container">
                             <i class="fas fa-money-bill-wave"></i>
-                            <input type="number" id="total" th:field="*{total}" step="0.01" placeholder="0.00" required>
+                            <input type="number" th:field="*{total}" step="0.01" placeholder="0.00" required>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                         <label for="estado">Estado de la Transacción</label>
                         <div class="input-container">
                             <i class="fas fa-info-circle"></i>
-                            <select id="estado" th:field="*{estado}" required>
+                            <select th:field="*{estado}" required>
                                 <option value="1">Completada</option>
                                 <option value="0">Pendiente / Cancelada</option>
                             </select>
@@ -79,10 +79,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cliente">DPI del Cliente</label>
+                        <label for="cliente">Cliente</label>
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <select id="cliente" th:field="*{cliente.id}" required>
+                            <select th:field="*{cliente}" required>
                                 <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nombre + ' ' + c.apellido}"></option>
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                         <label for="usuario">Vendedor Responsable</label>
                         <div class="input-container">
                             <i class="fas fa-user-tie"></i>
-                            <select id="usuario" th:field="*{usuario.id}" required>
+                            <select th:field="*{usuario}" required>
                                 <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.username}"></option>
                             </select>
                         </div>
