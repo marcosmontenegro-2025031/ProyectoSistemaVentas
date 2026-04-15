@@ -11,10 +11,8 @@ public interface VentaService {
 
     Venta getVentaById(Integer id);
 
-    Venta saveVenta(Venta venta);
-
-    Venta updateVenta(Integer id, Venta venta);
-
+    void saveVenta(Venta venta);
+    
     void deleteVenta(Integer id);
     
 }
