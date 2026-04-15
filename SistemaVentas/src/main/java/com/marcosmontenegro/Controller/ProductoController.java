@@ -6,40 +6,47 @@ import com.marcosmontenegro.Service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/productos")
+@Controller
 public class ProductoController {
 
     @Autowired
     private ProductoService service;
 
-    @GetMapping
-    public List<Producto> getAll() {
-        return service.getAllProductos();
+    @GetMapping("/productos")
+    public String listarProductos(Model model) {
+        List<Producto> lista = service.getAllProductos();
+        model.addAttribute("productos", lista);
+        return "productos";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Producto> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getProductoById(id));
+    @GetMapping("/productos/agregarproducto")
+    public String formularioNuevo(Model model) {
+        model.addAttribute("producto", new Producto());
+        return "agregarproducto";
     }
 
-    @PostMapping
-    public ResponseEntity<Producto> save(@Valid @RequestBody Producto producto) {
-        return ResponseEntity.ok(service.saveProducto(producto));
+    @PostMapping("/productos/guardarproducto")
+    public String guardarProducto(@ModelAttribute Producto producto) {
+        service.saveProducto(producto);
+        return "redirect:/productos";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Producto> update(@PathVariable Integer id, @Valid @RequestBody Producto producto) {
-        return ResponseEntity.ok(service.updateProducto(id, producto));
+    @GetMapping("/productos/editarproducto/{id}")
+    public String formularioEditar(@PathVariable Integer id, Model model) {
+        Producto producto = service.getProductoById(id);
+        model.addAttribute("producto", producto);
+        return "editarproducto";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ErrorResponse> delete(@PathVariable Integer id) {
-    service.deleteProducto(id);
-    return ResponseEntity.ok(new ErrorResponse("Cliente eliminado correctamente"));
+    @GetMapping("/productos/eliminar/{id}")
+    public String eliminarProducto(@PathVariable Integer id) {
+        service.deleteProducto(id);
+        return "redirect:/productos";
     }
 }
