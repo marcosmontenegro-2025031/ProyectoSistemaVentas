@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-store"></i> Sistema Ventas
+    </div>
+    <nav>
+        <ul>
+            <li><a th:href="@{/homevendedor}"><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a th:href="@{/ventasvendedor}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+            <li><a th:href="@{/productosvendedor}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+            <li><a class="active" th:href="@{/clientesvendedor}"><i class="fas fa-address-book"></i> Clientes</a></li>
+            <li><a th:href="@{/detalleventavendedor}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+            <li><a th:href="@{/perfil}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
+            <li class="logout-item">
+                <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+
+    <header class="navbar">
+        <div class="nav-left">
+            <h2>Gestión de Detalles</h2>
+        </div>
+        <div class="nav-right">
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding: 30px;">
+
+        <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <h3 style="color: #333; margin: 0;">Clientes del Sistema</h3>
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="input-container" style="margin: 0;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="buscar" placeholder="Buscar cliente..." onkeyup="filtrarTabla()" style="width: 100px;">
+                </div>
+
+                <a th:href="@{/clientesvendedor/agregarclientevendedor}" class="btn-add-sm">
+                    <i class="fas fa-user-plus"></i> Nuevo Cliente
+                </a>
+            </div>
+        </div>
+
+        <div class="table-container shadow-sm">
+            <table class="table" id="tablaClientes">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.id}">1</td>
+                    <td th:text="${c.nombre}" style="font-weight: 500;">Luis</td>
+                    <td th:text="${c.apellido}">Romero</td>
+                    <td th:text="${c.direccion}">14 calle zona 16</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${c.estado == 1} ? 'active' : 'inactive'"
+                                      th:text="${c.estado == 1 ? 'Activo' : 'Inactivo'}">
+                                    Activo
+                                </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<script>
+    function filtrarTabla() {
+        const input = document.getElementById("buscar").value.toLowerCase();
+        const filas = document.querySelectorAll("#tablaClientes tbody tr");
+
+        filas.forEach(fila => {
+            const texto = fila.innerText.toLowerCase();
+            fila.style.display = texto.includes(input) ? "" : "none";
+        });
+    }
+</script>
+
+</body>
+</html>
