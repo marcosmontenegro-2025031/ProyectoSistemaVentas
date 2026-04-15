@@ -18,6 +18,8 @@ public class ProductoController {
     @Autowired
     private ProductoService service;
 
+    //ADMINISTRADOR
+
     @GetMapping("/productos")
     public String listarProductos(Model model) {
         List<Producto> lista = service.getAllProductos();
@@ -49,4 +51,15 @@ public class ProductoController {
         service.deleteProducto(id);
         return "redirect:/productos";
     }
+
+    //VENDEDOR
+
+    @GetMapping("/productosvendedor")
+    public String listarProductosVendedor(Model model) {
+        List<Producto> lista = service.getAllProductos();
+        model.addAttribute("productos", lista);
+        return "productosvendedor";
+    }
+
+
 }
