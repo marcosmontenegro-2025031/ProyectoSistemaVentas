@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Detalle de Venta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
+        </div>
+        <nav>
+            <ul>
+            <li><a th:href="@{/homevendedor}"><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a th:href="@{/ventasvendedor}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+            <li><a th:href="@{/productosvendedor}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+            <li><a th:href="@{/clientesvendedor}"><i class="fas fa-address-book"></i> Clientes</a></li>
+            <li><a class="active" th:href="@{/detalleventavendedor}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+            <li><a th:href="@{/perfil}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
+            <li class="logout-item">
+                <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </li>
+        </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Gestión de Detalles</h2>
+            </div>
+            <div class="nav-right">
+                <button class="btn-logout-nav">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="card-form" style="max-width: 450px; width: 100%;">
+                <div class="card-header">
+                    <i class="fas fa-receipt"></i>
+                    <h2>Nuevo Detalle de Venta</h2>
+                </div>
+                
+                <form id="formDetalleVenta" th:action="@{/detalleventavendedor/guardardetalleventa}" th:object="${detalleVenta}" method="post" class="profile-form">
+                    
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad</label>
+                        <div class="input-container">
+                            <i class="fas fa-list-ol"></i>
+                            <input type="number" th:field="*{cantidad}" placeholder="Ej: 2" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precioUnitario">Precio Unitario (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-tag"></i>
+                            <input type="number" th:field="*{precioUnitario}" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subtotal">SubTotal (Q)</label>
+                        <div class="input-container">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <input type="number" th:field="*{subtotal}" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="producto">Producto</label>
+                        <div class="input-container">
+                            <i class="fas fa-box"></i>
+                            <select th:field="*{producto}" id="producto" required>
+                                <option value="" disabled selected>Seleccione un producto</option>
+                                <option th:each="p : ${productos}" 
+                                        th:value="${p.id}" 
+                                        th:text="${p.nombre} + ' (Q ' + ${p.precio} + ')'">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venta">ID Venta Relacionada</label>
+                        <div class="input-container">
+                            <i class="fas fa-cart-arrow-down"></i>
+                            <select th:field="*{venta}" id="venta" required>
+                                <option value="" disabled selected>Vincular a venta</option>
+                                <option th:each="v : ${ventas}" 
+                                        th:value="${v.id}" 
+                                        th:text="'Venta #' + ${v.id} + ' - ' + ${v.cliente.nombre}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar Detalle
+                        </button>
+                        <a th:href="@{/detalleventavendedor}" class="btn-cancel">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

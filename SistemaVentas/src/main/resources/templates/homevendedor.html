@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-store"></i> Sistema Ventas
+        </div>
+        <nav>
+            <ul>
+                <li><a  class="active" th:href="@{/homevendedor}"><i class="fas fa-house"></i> Inicio</a></li>
+                <li><a th:href="@{/ventasvendedor}"><i class="fas fa-cart-shopping"></i> Ventas</a></li>
+                <li><a th:href="@{/productosvendedor}"><i class="fas fa-boxes-stacked"></i> Productos</a></li>
+                <li><a th:href="@{/clientesvendedor}"><i class="fas fa-address-book"></i> Clientes</a></li>
+                <li><a th:href="@{/detalleventavendedor}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/perfil}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
+                <li class="logout-item">
+                    <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>Panel de Control</h2>
+            </div>
+            <div class="nav-right">
+                <form th:action="@{/logout}" method="get" style="display: inline;">
+                    <button type="submit" class="btn-logout-nav">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <main class="container" style="padding: 30px;">
+
+            <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, #1160B7 0%, #0a3d7a 100%); color: white; padding: 40px; border-radius: 20px;">
+                <h2 style="color: #fff; text-align: center;">Bienvenido</h2>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
