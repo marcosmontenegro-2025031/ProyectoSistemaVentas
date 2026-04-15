@@ -1,11 +1,11 @@
 package com.marcosmontenegro.Controller;
 
 import com.marcosmontenegro.Entity.Usuario;
-import com.marcosmontenegro.Exception.ErrorResponse;
 import com.marcosmontenegro.Service.UsuarioService;
-import jakarta.validation.Valid;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,11 +50,13 @@ public class UsuarioController {
     public String registro() {
         return "registro";
     }
+
     @PostMapping("/registro")
     public String guardar(@RequestParam String username,
-                          @RequestParam String password,
-                          Model model) {
-        Usuario u = service.registrar(username, password);
+                        @RequestParam String password,
+                        @RequestParam String email,
+                        Model model) {
+        Usuario u = service.registrar(username, password, email);
         if (u == null) {
             model.addAttribute("error", "Usuario ya existe");
             return "registro";
@@ -82,9 +84,30 @@ public class UsuarioController {
         return "agregarusuario";
     }
 
+    @PostMapping("/usuarios/guardar")
+    public String guardarUsuario(@ModelAttribute Usuario usuario) {
+        service.saveUsuario(usuario);
+        return "redirect:/usuarios";
+    }
+    
+
+    @GetMapping("/usuarios/editarusuario/{id}")
+    public String formularioEditar(@PathVariable Integer id, Model model) {
+        Usuario usuario = service.getUsuarioById(id);
+        model.addAttribute("usuario", usuario);
+        return "editarusuario"; 
+    }
+
     @GetMapping("/usuarios/eliminar/{id}")
     public String eliminarUsuario(@PathVariable Integer id) {
         service.deleteUsuario(id);
         return "redirect:/usuarios";
     }
+
+
+    @GetMapping("/logout")
+public String logout(HttpSession session) {
+    session.invalidate();
+    return "redirect:/login";
+}
 }
