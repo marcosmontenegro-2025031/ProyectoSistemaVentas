@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas | INPRAX</title>
+    <title>Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
@@ -34,25 +34,30 @@
                 <h2>Gestión de Ventas</h2>
             </div>
             <div class="nav-right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn-logout-nav">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
-                </form>
-            </div>
+            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
         </header>
 
         <main class="main-content" style="padding: 30px;">
-            
-            <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <h3 style="color: #333; margin: 0;">Registro de Transacciones</h3>
-                <a th:href="@{/ventas/nuevo}" class="btn-add">
-                    <i class="fas fa-plus"></i> Registrar Nueva Venta
-                </a>
+             <div class="table-header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="color: #333; margin: 0;">Ventas del Sistema</h3>
+                
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="input-container" style="margin: 0;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="buscar" placeholder="Buscar venta..." onkeyup="filtrarTabla()" style="width: 100px;">
+                    </div>
+
+                    <a th:href="@{/clientes/agregarcliente}" class="btn-add-sm">
+                        <i class="fas fa-user-plus"></i> Nueva Venta
+                    </a>
+                </div>
             </div>
 
             <div class="table-container shadow-sm">
-                <table class="table">
+                <table class="table" id="tablaUsuarios">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -66,23 +71,23 @@
                     <tbody>
                         <tr th:each="v : ${ventas}">
                             <td th:text="${v.id}">1</td>
-                            <td th:text="${#dates.format(v.fechaVenta, 'dd/MM/yyyy')}">14/04/2026</td>
+                            <td th:text="${v.fechaVenta}">14/04/2026</td>
                             <td th:text="${v.cliente.nombre + ' ' + v.cliente.apellido}">Juan Pérez</td>
-                            <td th:text="'Q ' + ${#numbers.formatDecimal(v.total, 1, 2)}" style="font-weight: 600;">Q 150.00</td>
+                            <td th:text="'Q ' + ${#numbers.formatDecimal(v.total, 1, 2)}" style="font-weight: 600; color: #1160B7;">Q 150.00</td>
                             <td>
                                 <span class="status-badge" 
-                                      th:classappend="${v.estado == 1} ? 'active' : 'inactive'"
-                                      th:text="${v.estado == 1 ? 'Completada' : 'Pendiente'}">
+                                    th:classappend="${v.estado == 1} ? 'active' : 'inactive'"
+                                    th:text="${v.estado == 1 ? 'Completada' : 'Pendiente'}">
                                     Completada
                                 </span>
                             </td>
                             <td class="text-center">
-                                <div class="action-group">
-                                    <a th:href="@{/ventas/editar/{id}(id=${v.id})}" class="action-btn edit" title="Editar">
+                                <div class="action-group" style="display: flex; justify-content: center; gap: 8px;">
+                                    <a th:href="@{/ventas/editarventa/{id}(id=${v.id})}" class="action-btn edit" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a th:href="@{/ventas/eliminar/{id}(id=${v.id})}" class="action-btn delete" 
-                                       onclick="return confirm('¿Eliminar registro de venta?')" title="Eliminar">
+                                    onclick="return confirm('¿Eliminar registro de venta?')" title="Eliminar">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -92,3 +97,18 @@
                 </table>
             </div>
         </main>
+    </div>
+
+    <script>
+        function filtrarTabla() {
+            const input = document.getElementById("buscar").value.toLowerCase();
+            const filas = document.querySelectorAll("#tablaUsuarios tbody tr");
+
+            filas.forEach(fila => {
+                const texto = fila.innerText.toLowerCase();
+                fila.style.display = texto.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>
