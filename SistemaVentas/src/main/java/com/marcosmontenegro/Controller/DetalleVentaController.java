@@ -2,42 +2,60 @@ package com.marcosmontenegro.Controller;
 
 import com.marcosmontenegro.Entity.DetalleVenta;
 import com.marcosmontenegro.Service.DetalleVentaService;
-import com.marcosmontenegro.Exception.ErrorResponse;
+import com.marcosmontenegro.Service.ProductoService;
+import com.marcosmontenegro.Service.VentaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/detalles-venta")
+@Controller
 public class DetalleVentaController {
 
     @Autowired
     private DetalleVentaService service;
 
-    @GetMapping
-    public List<DetalleVenta> getAll() {
-        return service.getAllDetalles();
+    @Autowired
+    private ProductoService productoService;
+
+    @Autowired
+    private VentaService ventaService;
+
+    @GetMapping("/detalleventa")
+    public String listarDetalles(Model model) {
+        List<DetalleVenta> lista = service.getAllDetalleVentas();
+        model.addAttribute("detalles", lista);
+        return "detalleventa";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DetalleVenta> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getDetalleById(id));
+    @GetMapping("/detalleventa/agregardetalleventa")
+    public String formularioNuevo(Model model) {
+        model.addAttribute("detalleVenta", new DetalleVenta());
+        model.addAttribute("productos", productoService.getAllProductos());
+        model.addAttribute("ventas", ventaService.getAllVentas());
+        return "agregardetalleventa";
     }
 
-    @PostMapping
-    public ResponseEntity<DetalleVenta> save(@RequestBody DetalleVenta detalle) {
-        return ResponseEntity.ok(service.saveDetalle(detalle));
+    @PostMapping("/detalleventa/guardardetalle")
+    public String guardarDetalle(@ModelAttribute DetalleVenta detalleVenta) {
+        service.saveDetalleVenta(detalleVenta);
+        return "redirect:/detalleventa";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DetalleVenta> update(@PathVariable Integer id, @RequestBody DetalleVenta detalle) {
-        return ResponseEntity.ok(service.updateDetalle(id, detalle));
+    @GetMapping("/detalleventa/editardetalleventa/{id}")
+    public String formularioEditar(@PathVariable Integer id, Model model) {
+        DetalleVenta detalleVenta = service.getDetalleVentaById(id);
+        model.addAttribute("detalleVenta", detalleVenta);
+        model.addAttribute("productos", productoService.getAllProductos());
+        model.addAttribute("ventas", ventaService.getAllVentas());
+        return "editardetalleventa"; 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ErrorResponse> delete(@PathVariable Integer id) {
-        service.deleteDetalle(id);
-        return ResponseEntity.ok(new ErrorResponse("Detalle eliminado correctamente"));
+    @GetMapping("/detalleventa/eliminar/{id}")
+    public String eliminarDetalle(@PathVariable Integer id) {
+        service.deleteDetalleVenta(id);
+        return "redirect:/detalleventa";
     }
 }
