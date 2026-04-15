@@ -11,10 +11,8 @@ public interface ProductoService {
 
     Producto getProductoById(Integer id);
 
-    Producto saveProducto(Producto producto);
-
-    Producto updateProducto(Integer id, Producto producto);
-
+    void saveProducto(Producto producto);
+    
     void deleteProducto(Integer id);
     
 }
