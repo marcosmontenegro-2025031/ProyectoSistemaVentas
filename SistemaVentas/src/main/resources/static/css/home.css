@@ -85,6 +85,33 @@ body {
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-avatar-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-username {
+            font-size: 13px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
         .btn-logout-nav {
             background: rgba(255, 255, 255, 0.1);
             color: #FFFFFF;

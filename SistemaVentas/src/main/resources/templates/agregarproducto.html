@@ -21,6 +21,7 @@
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
                 <li><a th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/perfiladmin}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -30,14 +31,16 @@
 
     <div class="main-wrapper">
         <header class="navbar">
-            <div class="nav-left">
-                <h2>Gestión de Productos</h2>
-            </div>
+            <div class="nav-left"><h2>Gestión de Productos</h2></div>
             <div class="nav-right">
-            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
-                <i class="fas fa-sign-out-alt"></i> Salir
-            </a>
-        </div>
+                <a th:href="@{/perfiladmin}" class="nav-profile">
+                    <img th:src="@{/images/admin.png}" class="nav-avatar-img">
+                    <span class="nav-username">Admin</span>
+                </a>
+                <a th:href="@{/logout}" class="btn-logout-nav">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </a>
+            </div>
         </header>
 
         <main class="container">

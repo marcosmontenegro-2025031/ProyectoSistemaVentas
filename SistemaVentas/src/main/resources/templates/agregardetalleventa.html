@@ -21,6 +21,7 @@
                 <li><a th:href="@{/clientes}"><i class="fas fa-address-book"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-gear"></i> Usuarios</a></li>
                 <li><a class="active" th:href="@{/detalleventa}"><i class="fas fa-circle-info"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/perfiladmin}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -29,15 +30,16 @@
     </aside>
 
     <div class="main-wrapper">
-        
         <header class="navbar">
-            <div class="nav-left">
-                <h2>Gestión de Detalles</h2>
-            </div>
+            <div class="nav-left"><h2>Gestión de Detalles Venta</h2></div>
             <div class="nav-right">
-                <button class="btn-logout-nav">
+                <a th:href="@{/perfiladmin}" class="nav-profile">
+                    <img th:src="@{/images/admin.png}" class="nav-avatar-img">
+                    <span class="nav-username">Admin</span>
+                </a>
+                <a th:href="@{/logout}" class="btn-logout-nav">
                     <i class="fas fa-sign-out-alt"></i> Salir
-                </button>
+                </a>
             </div>
         </header>
 
@@ -79,7 +81,7 @@
                         <div class="input-container">
                             <i class="fas fa-box"></i>
                             <select th:field="*{producto}" id="producto" required>
-                                <option value="">Seleccione un producto</option>
+                                <option value="" disabled selected>Seleccione un producto</option>
                                 <option th:each="p : ${productos}" 
                                         th:value="${p.id}" 
                                         th:text="${p.nombre} + ' (Q ' + ${p.precio} + ')'">
@@ -93,7 +95,7 @@
                         <div class="input-container">
                             <i class="fas fa-cart-arrow-down"></i>
                             <select th:field="*{venta}" id="venta" required>
-                                <option value="">Seleccione una venta</option>
+                                <option value="" disabled selected>Vincular a venta</option>
                                 <option th:each="v : ${ventas}" 
                                         th:value="${v.id}" 
                                         th:text="'Venta #' + ${v.id} + ' - ' + ${v.cliente.nombre}">

@@ -21,6 +21,7 @@
                 <li><a th:href="@{/clientes}"><i class="fas fa-users"></i> Clientes</a></li>
                 <li><a th:href="@{/usuarios}"><i class="fas fa-user-shield"></i> Usuarios</a></li>
                 <li><a th:href="@{/detalleventa}"><i class="fas fa-file-lines"></i> Detalle Venta</a></li>
+                <li><a th:href="@{/perfiladmin}"><i class="fas fa-user-gear"></i> Mi perfil</a></li>
                 <li class="logout-item">
                     <a th:href="@{/login}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </li>
@@ -35,6 +36,10 @@
                 <h2>Panel de Control</h2>
             </div>
             <div class="nav-right">
+                <a th:href="@{/perfiladmin}" class="nav-profile">
+                    <img th:src="@{/images/admin.png}" class="nav-avatar-img">
+                    <span class="nav-username">Admin</span>
+                </a>
                 <form th:action="@{/logout}" method="get" style="display: inline;">
                     <button type="submit" class="btn-logout-nav">
                         <i class="fas fa-sign-out-alt"></i> Salir
@@ -42,7 +47,6 @@
                 </form>
             </div>
         </header>
-
         <main class="container" style="padding: 30px;">
 
             <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, #1160B7 0%, #0a3d7a 100%); color: white; padding: 40px; border-radius: 20px;">

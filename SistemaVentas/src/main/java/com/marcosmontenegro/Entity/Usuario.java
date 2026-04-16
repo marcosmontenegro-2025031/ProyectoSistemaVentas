@@ -31,6 +31,7 @@ public class Usuario {
     @Column(name = "estado")
     private Integer estado;
 
+
     // GETTERS AND SETTERS
 
     public Integer getId() {
@@ -81,5 +82,4 @@ public class Usuario {
         this.estado = estado;
     }
 
-    
 }

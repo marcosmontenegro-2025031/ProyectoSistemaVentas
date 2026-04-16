@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -115,6 +114,25 @@ public class UsuarioController {
     public String eliminarUsuario(@PathVariable Integer id) {
         service.deleteUsuario(id);
         return "redirect:/usuarios";
+    }
+
+
+
+    @GetMapping("/perfiladmin")
+    public String mostrarPerfilAdmin(HttpSession session, Model model) {
+        Usuario u = (Usuario) session.getAttribute("usuarioLogueado");
+        if (u == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("usuario", u);
+        return "perfiladmin";
+    }
+
+    @PostMapping("/perfiladmin/guardar")
+    public String guardarUsuarioAdmin(@ModelAttribute Usuario usuario, HttpSession session) {
+        service.saveUsuario(usuario);
+        session.setAttribute("usuarioLogueado", usuario);
+        return "redirect:/home";
     }
 
     //Vendedor

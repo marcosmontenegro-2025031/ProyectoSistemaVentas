@@ -62,7 +62,7 @@ public class UsuarioServiceImplements implements UsuarioService {
         u.setUsername(username);
         u.setPassword(password);
         u.setEmail(email);
-        u.setRol("USER");
+        u.setRol("VENDEDOR");
         u.setEstado(1);
         return repo.save(u);
     }

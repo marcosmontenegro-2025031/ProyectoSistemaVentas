@@ -29,18 +29,20 @@
     </aside>
 
     <div class="main-wrapper">
-        
         <header class="navbar">
-            <div class="nav-left">
-                <h2>Gestión de Detalles</h2>
-            </div>
+            <div class="nav-left"><h2>Gestión de Clientes</h2></div>
             <div class="nav-right">
-            <a th:href="@{/logout}" class="btn-logout-nav" style="text-decoration: none;">
-                <i class="fas fa-sign-out-alt"></i> Salir
-            </a>
-        </div>
+                <a th:href="@{/perfiladmin}" class="nav-profile">
+                    <img th:src="@{/images/admin.png}" class="nav-avatar-img">
+                    <span class="nav-username">Admin</span>
+                </a>
+                <a th:href="@{/logout}" class="btn-logout-nav">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </a>
+            </div>
         </header>
 
+        
         <main class="container">
             <div class="card-form" style="max-width: 450px; width: 100%;">
                 <div class="card-header">
